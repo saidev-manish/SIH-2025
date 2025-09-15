@@ -20,6 +20,7 @@ This error means Google Sign-in is not enabled in your Firebase project.
 ### 2. Verify Configuration
 
 Your current Firebase config in `src/lib/firebase.ts`:
+
 ```
 Project ID: safeyatri-5d204
 Auth Domain: safeyatri-5d204.firebaseapp.com

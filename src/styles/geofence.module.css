@@ -730,6 +730,9 @@
   border-radius: 12px;
   overflow: hidden;
   border: 2px solid #e2e8f0;
+  height: 400px;
+  width: 100%;
+  min-height: 300px;
 }
 
 /* Violations Section */
@@ -1313,7 +1316,8 @@
   height: 500px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: cen
+  ter;
   background: #f3f4f6;
   border-radius: 12px;
   border: 2px dashed #d1d5db;

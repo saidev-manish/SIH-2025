@@ -9,34 +9,39 @@ This error means **Google authentication is not enabled** in your Firebase proje
 ## 🚀 **Step-by-Step Fix**
 
 ### 1. **Open Firebase Console**
-   - Go to: https://console.firebase.google.com/
-   - Select your project: **safeyatri-5d204**
+
+- Go to: <https://console.firebase.google.com/>
+- Select your project: **safeyatri-5d204**
 
 ### 2. **Enable Google Authentication**
-   - Click **"Authentication"** in the left sidebar
-   - Click **"Sign-in method"** tab
-   - Find **"Google"** in the providers list
-   - Click on **Google** provider
-   - Toggle **"Enable"** to **ON**
-   - **Required**: Add your support email (use the email associated with your Google account)
-   - Click **"Save"**
+
+- Click **"Authentication"** in the left sidebar
+- Click **"Sign-in method"** tab
+- Find **"Google"** in the providers list
+- Click on **Google** provider
+- Toggle **"Enable"** to **ON**
+- **Required**: Add your support email (use the email associated with your Google account)
+- Click **"Save"**
 
 ### 3. **Add Authorized Domains**
-   - In the same page, scroll down to **"Authorized domains"**
-   - Make sure these domains are listed:
-     - ✅ `localhost` (for development)
-     - ✅ `your-domain.com` (for production, when you deploy)
+
+- In the same page, scroll down to **"Authorized domains"**
+- Make sure these domains are listed:
+  - ✅ `localhost` (for development)
+  - ✅ `your-domain.com` (for production, when you deploy)
 
 ### 4. **Test the Authentication**
-   - Go back to your login page: http://localhost:3000/admin/login
-   - Click **"Sign in with Google"**
-   - You should now see the Google sign-in popup
+
+- Go back to your login page: <http://localhost:3000/admin/login>
+- Click **"Sign in with Google"**
+- You should now see the Google sign-in popup
 
 ---
 
 ## ✅ **What's Already Done**
 
 Your code is **100% ready**! We've successfully:
+
 - ✅ Removed all fake authentication
 - ✅ Implemented Google OAuth with Firebase
 - ✅ Updated login and registration pages

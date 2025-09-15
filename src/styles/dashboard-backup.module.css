@@ -829,8 +829,6 @@
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-  scrollbar-width: thin;
-  scrollbar-color: #dee2e6 #f8f9fa;
 }
 
 .locationCell::-webkit-scrollbar {

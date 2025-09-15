@@ -470,8 +470,6 @@ const FirebaseGeofenceManager: React.FC<FirebaseGeofenceManagerProps> = ({
           <GeofenceMap
             geofenceZones={geofenceZones}
             userLocations={userLocations}
-            height="600px"
-            width="100%"
           />
         </div>
       </div>

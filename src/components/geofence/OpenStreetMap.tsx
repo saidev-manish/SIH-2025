@@ -57,11 +57,6 @@ const OpenStreetMap: React.FC<OpenStreetMapProps> = ({
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
 
-  const containerStyle = {
-    height: height,
-    width: width
-  };
-
   // Helper function to calculate distance between two points
   const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
     const R = 6371e3; // Earth's radius in meters
@@ -239,7 +234,7 @@ const OpenStreetMap: React.FC<OpenStreetMapProps> = ({
   }, [zones, users]);
 
   return (
-    <div className={styles.mapContainer} style={containerStyle}>
+    <div className={styles.mapContainer}>
       <div 
         ref={mapRef} 
         className={styles.mapContent}
