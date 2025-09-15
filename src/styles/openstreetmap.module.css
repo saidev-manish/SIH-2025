@@ -1,0 +1,70 @@
+/* OpenStreetMap component styles */
+.mapContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.leafletMap {
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mapBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1000; 
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Custom marker styles */
+.customMarker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.markerSafe {
+  background-color: #22c55e;
+}
+
+.markerDanger {
+  background-color: #ef4444;
+}
+
+.markerNeutral {
+  background-color: #3b82f6;
+}
+
+/* Popup styles */
+.leaflet-popup-content h3 {
+  margin: 0 0 8px 0;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.leaflet-popup-content p {
+  margin: 4px 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.leaflet-popup-content strong {
+  color: #374151;
+}

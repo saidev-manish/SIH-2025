@@ -1,0 +1,400 @@
+/* Messaging System Styles */
+.messagingSystem {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+}
+
+.header h2 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+}
+
+.header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+/* Admin Status */
+.adminStatus {
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.configuredStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f0f9ff;
+  border-color: #0ea5e9;
+}
+
+.notConfiguredStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+
+.statusIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.senderName {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Templates */
+.templates {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.templates h3 {
+  margin: 0 0 15px 0;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.templateButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.templateBtn {
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.templateBtn.custom {
+  background: #f0f9ff;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.templateBtn.info {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.templateBtn.warning {
+  background: #fffbeb;
+  color: #d97706;
+  border-color: #fde68a;
+}
+
+.templateBtn.alert {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.templateBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Message Form */
+.messageForm {
+  margin-bottom: 30px;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+.input, .textarea, .select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* User Selection */
+.userSelection {
+  margin-bottom: 30px;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.selectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selectionHeader h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.selectionActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.selectAllBtn {
+  padding: 8px 16px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.selectAllBtn:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.selectedCount {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.userGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.userCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.userCard:hover {
+  border-color: #3b82f6;
+  background: #f8fafc;
+}
+
+.userCard.selected {
+  border-color: #10b981;
+  background: #f0fdf4;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userStatus {
+  font-size: 16px;
+}
+
+.userDetails {
+  flex: 1;
+}
+
+.userName {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.userEmail {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.selectionIndicator {
+  font-size: 18px;
+}
+
+/* Send Section */
+.sendSection {
+  text-align: center;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sendBtn {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-width: 200px;
+}
+
+.sendBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.sendBtn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.sendBtn.sending {
+  background: #6b7280;
+  cursor: wait;
+}
+
+.sendInfo {
+  margin: 15px 0 0 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sendInfo strong {
+  color: #374151;
+}
+
+/* Send Buttons Container */
+.sendButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sendButtons .sendBtn {
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.systemSend {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.systemSend:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.emailClientSend {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.emailClientSend:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.configWarning {
+  margin: 10px 0 0 0;
+  color: #f59e0b;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  background: #fef3c7;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #fbbf24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .messagingSystem {
+    padding: 15px;
+  }
+  
+  .selectionHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .selectionActions {
+    justify-content: space-between;
+  }
+  
+  .userGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .templateButtons {
+    grid-template-columns: 1fr;
+  }
+}
