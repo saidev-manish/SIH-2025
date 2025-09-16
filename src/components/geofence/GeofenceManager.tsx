@@ -657,7 +657,7 @@ const CreateZoneModal: React.FC<{
             <select
               id="zoneType"
               value={formData.type}
-              onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as any }))}
+              onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as 'safe' | 'warning' | 'restricted' }))}
               className={styles.select}
             >
               <option value="safe">🟢 Safe Zone</option>

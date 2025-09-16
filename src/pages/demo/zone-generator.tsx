@@ -16,7 +16,7 @@ const ZoneGeneratorDemo: React.FC = () => {
             📍 How to Use the Zone Generator
           </h3>
           <ol className={styles.instructionList}>
-            <li>Click the <strong>"🎯 Generate Zones"</strong> button in the controls</li>
+            <li>Click the <strong>&quot;🎯 Generate Zones&quot;</strong> button in the controls</li>
             <li>Choose from three generation options:
               <ul>
                 <li><strong>User Zones:</strong> Create zones around existing users</li>

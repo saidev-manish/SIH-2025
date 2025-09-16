@@ -11,7 +11,7 @@ interface GeofenceMapProps {
 
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
     initMap: () => void;
   }
 }

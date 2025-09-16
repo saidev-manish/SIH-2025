@@ -32,7 +32,11 @@ const SecurityMap: React.FC<SecurityMapProps> = ({ userLocation, showControls = 
   });
   const [selectedZone, setSelectedZone] = useState<SecurityZone | null>(null);
   const [radarMode, setRadarMode] = useState(false);
-  const [alerts, setAlerts] = useState<any[]>([]);
+  const [alerts, setAlerts] = useState<Array<{
+    level: 'info' | 'warning' | 'danger' | 'critical';
+    message: string;
+    zones: SecurityZone[];
+  }>>([]);
 
   const nearbyZones = findNearbySecurityZones(
     userLocation.coordinates.lat, 

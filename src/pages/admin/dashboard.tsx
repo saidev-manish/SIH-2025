@@ -5,7 +5,7 @@ import MessagingSystem from '../../components/messaging/MessagingSystem';
 import GeofenceManager from '../../components/geofence/GeofenceManager';
 import SecurityMap from '../../components/security/SecurityMap';
 import { findNearbySecurityZones } from '../../services/locationService';
-import { onAuthStateChange, signOutAdmin } from '../../lib/firebase';
+import { onAuthStateChange, signOut, getCurrentUser } from '../../lib/auth';
 
 interface User {
   id: string;
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
       if (user) {
         setAdmin({ 
           email: user.email || '', 
-          name: user.displayName || user.email?.split('@')[0] || 'Admin' 
+          name: user.name || user.email?.split('@')[0] || 'Admin' 
         });
         
         // Auto-populate admin config with login email
@@ -124,7 +124,7 @@ export default function AdminDashboard() {
           setAdminConfig(prev => ({
             ...prev,
             senderEmail: user.email || '',
-            senderName: user.displayName || 'Admin Team'
+            senderName: user.name || 'Admin Team'
           }));
         }
       } else {
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
 
   const handleSignOut = async () => {
     try {
-      await signOutAdmin();
+      await signOut();
       router.push('/admin/login');
     } catch (error) {
       console.error('Error signing out:', error);
@@ -403,7 +403,7 @@ export default function AdminDashboard() {
                 
                 {admin?.email && !adminConfig.isConfigured && (
                   <div className={styles.autoFillNotice}>
-                    💡 We've pre-filled your email from your login. You can modify it below and click save.
+                    💡 We&apos;ve pre-filled your email from your login. You can modify it below and click save.
                   </div>
                 )}
                 
@@ -530,7 +530,7 @@ export default function AdminDashboard() {
                     user.location.address.toLowerCase().includes(userSearchTerm.toLowerCase())
                   ).length === 0 && userSearchTerm && (
                     <div className={styles.noResults}>
-                      <p>🔍 No users found matching "{userSearchTerm}"</p>
+                      <p>🔍 No users found matching &quot;{userSearchTerm}&quot;</p>
                       <button 
                         className={styles.clearSearchBtn}
                         onClick={() => setUserSearchTerm('')}
@@ -635,7 +635,7 @@ export default function AdminDashboard() {
         <div className={styles.mapModal} onClick={() => setShowMap(false)}>
           <div className={styles.mapContainer} onClick={(e) => e.stopPropagation()}>
             <div className={styles.mapHeader}>
-              <h3>🗺️ {selectedUser.name}'s Location</h3>
+              <h3>🗺️ {selectedUser.name}&apos;s Location</h3>
               <button 
                 onClick={() => setShowMap(false)}
                 className={styles.closeBtn}

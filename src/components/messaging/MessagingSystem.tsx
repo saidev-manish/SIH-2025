@@ -283,7 +283,7 @@ This message was sent from the SIH 2025 Admin Portal`;
           <select
             title="Select message type"
             value={messageForm.messageType}
-            onChange={(e) => setMessageForm(prev => ({ ...prev, messageType: e.target.value as any }))}
+            onChange={(e) => setMessageForm(prev => ({ ...prev, messageType: e.target.value as 'custom' | 'info' | 'warning' | 'alert' }))}
             className={styles.select}
           >
             <option value="custom">📝 Custom Message</option>
@@ -298,7 +298,7 @@ This message was sent from the SIH 2025 Admin Portal`;
           <select
             title="Select message priority"
             value={messageForm.priority}
-            onChange={(e) => setMessageForm(prev => ({ ...prev, priority: e.target.value as any }))}
+            onChange={(e) => setMessageForm(prev => ({ ...prev, priority: e.target.value as 'low' | 'normal' | 'high' }))}
             className={styles.select}
           >
             <option value="low">🔵 Low Priority</option>
