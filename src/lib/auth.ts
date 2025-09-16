@@ -68,7 +68,7 @@ export const signInWithEmailPassword = async (email: string, password: string) =
       success: true, 
       user 
     };
-  } catch (error: unknown) {
+  } catch {
     return { 
       success: false, 
       error: "Login failed. Please try again." 
@@ -100,7 +100,7 @@ export const getCurrentUser = (): User | null => {
       return JSON.parse(userStr);
     }
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 };

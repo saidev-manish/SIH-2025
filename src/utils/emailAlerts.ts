@@ -1,10 +1,10 @@
-import { GeofenceViolation } from '../types/geofence';
+import { GeofenceViolation, GeofenceZone } from '../types/geofence';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface AlertEmailData {
@@ -87,7 +87,7 @@ export function getUserById(users: User[], userId: string): User | undefined {
 export async function handleZoneViolation(
   violation: GeofenceViolation,
   users: User[],
-  zones: any[],
+  zones: GeofenceZone[],
   config: { alertsEnabled: boolean; autoAlerts: boolean }
 ): Promise<void> {
   if (!config.alertsEnabled) {

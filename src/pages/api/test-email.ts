@@ -103,8 +103,8 @@ export default async function handler(
     
     const errorInfo = {
       message: error instanceof Error ? error.message : 'Unknown error',
-      code: (error as any)?.code,
-      command: (error as any)?.command
+      code: (error as unknown as { code?: string })?.code,
+      command: (error as unknown as { command?: string })?.command
     };
 
     res.status(500).json({

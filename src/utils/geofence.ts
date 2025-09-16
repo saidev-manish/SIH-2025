@@ -153,7 +153,12 @@ export function generateMockGeofences(): GeofenceZone[] {
 
 // Simulate real-time location updates
 export function simulateLocationUpdate(
-  users: any[],
+  users: Array<{
+    id: string;
+    name: string;
+    location: { lat: number; lng: number };
+    [key: string]: unknown;
+  }>,
   geofenceZones: GeofenceZone[]
 ): UserLocation[] {
   return users.map(user => {

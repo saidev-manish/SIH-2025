@@ -195,9 +195,9 @@ export default async function handler(
     
     const errorDetails = {
       message: error instanceof Error ? error.message : 'Unknown error',
-      code: (error as any)?.code,
-      command: (error as any)?.command,
-      response: (error as any)?.response
+      code: (error as unknown as { code?: string })?.code,
+      command: (error as unknown as { command?: string })?.command,
+      response: (error as unknown as { response?: string })?.response
     };
     
     res.status(500).json({

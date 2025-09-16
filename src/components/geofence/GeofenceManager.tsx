@@ -398,7 +398,7 @@ const GeofenceManager: React.FC = () => {
             />
           </React.Suspense>
         );
-      } catch (error) {
+      } catch {
         console.warn('OpenStreetMap failed to load, falling back to SVG map');
         setSelectedMapType('fallback');
       }

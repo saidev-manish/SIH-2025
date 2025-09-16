@@ -5,7 +5,7 @@ import MessagingSystem from '../../components/messaging/MessagingSystem';
 import GeofenceManager from '../../components/geofence/GeofenceManager';
 import SecurityMap from '../../components/security/SecurityMap';
 import { findNearbySecurityZones } from '../../services/locationService';
-import { onAuthStateChange, signOut, getCurrentUser } from '../../lib/auth';
+import { signOut, onAuthStateChange } from '../../lib/auth';
 
 interface User {
   id: string;

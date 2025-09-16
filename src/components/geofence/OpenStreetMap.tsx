@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import dynamic from 'next/dynamic';
 import styles from '../../styles/geofence.module.css';
 
 // Local interfaces to match GeofenceManager
