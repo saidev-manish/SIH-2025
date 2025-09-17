@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/geofence.module.css';
 
 // Local interfaces to match GeofenceManager
@@ -26,14 +26,6 @@ interface UserLocation {
   email?: string;
 }
 
-// Fix default marker icons for Leaflet
-delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: string })._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-});
-
 interface OpenStreetMapProps {
   zones: GeofenceZone[];
   users: UserLocation[];
@@ -47,72 +39,93 @@ interface OpenStreetMapProps {
 const OpenStreetMap: React.FC<OpenStreetMapProps> = ({
   zones,
   users,
-  center,
-  zoom,
-  onZoneCreate,
-  height = '400px',
-  width = '100%'
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
-
-  // Helper function to calculate distance between two points
-  const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
-    const R = 6371e3; // Earth's radius in meters
-    const φ1 = lat1 * Math.PI / 180;
-    const φ2 = lat2 * Math.PI / 180;
-    const Δφ = (lat2 - lat1) * Math.PI / 180;
-    const Δλ = (lng2 - lng1) * Math.PI / 180;
-
-    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-              Math.cos(φ1) * Math.cos(φ2) *
-              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c;
-  };
+  const [isClient, setIsClient] = useState(false);
+  const [map, setMap] = useState<any>(null);
+  const [L, setL] = useState<any>(null);
 
   useEffect(() => {
-    if (!mapRef.current) return;
-
-    // Initialize map centered on India
-    const map = L.map(mapRef.current).setView([20.5937, 78.9629], 5);
-
-    // Add OpenStreetMap tiles (completely free)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19,
-    }).addTo(map);
-
-    mapInstanceRef.current = map;
-
-    // Cleanup function
-    return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-      }
-    };
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!mapInstanceRef.current) return;
+    if (!isClient || !mapRef.current) return;
 
-    const map = mapInstanceRef.current;
+    // Dynamic import of leaflet to avoid SSR issues
+    const loadLeaflet = async () => {
+      try {
+        const leaflet = await import('leaflet');
+        const LeafletLib = leaflet.default;
+        
+        // Fix default marker icons for Leaflet
+        delete (LeafletLib.Icon.Default.prototype as any)._getIconUrl;
+        LeafletLib.Icon.Default.mergeOptions({
+          iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+          iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        });
+
+        setL(LeafletLib as any);
+        
+        // Initialize map
+        if (mapRef.current) {
+          const mapInstance = LeafletLib.map(mapRef.current).setView([20.5937, 78.9629], 5);
+          
+          // Add OpenStreetMap tiles
+          LeafletLib.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+          }).addTo(mapInstance);
+
+          setMap(mapInstance);
+        }
+      } catch (error) {
+        console.error('Failed to load Leaflet:', error);
+      }
+    };
+
+    loadLeaflet();
+
+    return () => {
+      if (map) {
+        map.remove();
+      }
+    };
+  }, [isClient, map]);
+
+  useEffect(() => {
+    if (!map || !L) return;
 
     // Clear existing layers
-    map.eachLayer((layer) => {
+    map.eachLayer((layer: any) => {
       if (layer instanceof L.Circle || layer instanceof L.Marker) {
         map.removeLayer(layer);
       }
     });
 
+    // Helper function to calculate distance between two points
+    const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
+      const R = 6371e3; // Earth's radius in meters
+      const φ1 = lat1 * Math.PI / 180;
+      const φ2 = lat2 * Math.PI / 180;
+      const Δφ = (lat2 - lat1) * Math.PI / 180;
+      const Δλ = (lng2 - lng1) * Math.PI / 180;
+
+      const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      return R * c;
+    };
+
     // Add geofence zones
     zones.forEach((zone) => {
       const circle = L.circle([zone.center.lat, zone.center.lng], {
         radius: zone.radius,
-        color: zone.type === 'safe' ? '#22c55e' : '#ef4444',
-        fillColor: zone.type === 'safe' ? '#22c55e' : '#ef4444',
+        color: zone.type === 'safe' ? '#22c55e' : zone.type === 'warning' ? '#fbbf24' : '#ef4444',
+        fillColor: zone.type === 'safe' ? '#22c55e' : zone.type === 'warning' ? '#fbbf24' : '#ef4444',
         fillOpacity: 0.2,
         weight: 2,
       }).addTo(map);
@@ -147,48 +160,24 @@ const OpenStreetMap: React.FC<OpenStreetMapProps> = ({
       const icon = L.divIcon({
         className: 'custom-user-marker',
         html: `
-          <div class="user-marker-container" style="
-            position: relative;
-            width: 32px; 
+          <div style="
+            background: ${markerColor};
+            color: white;
+            border-radius: 50%;
+            width: 32px;
             height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
           ">
-            <div class="user-marker" style="
-              width: 32px; 
-              height: 32px; 
-              border-radius: 50%; 
-              display: flex; 
-              align-items: center; 
-              justify-content: center; 
-              color: white; 
-              font-weight: bold; 
-              font-size: 14px; 
-              border: 3px solid white; 
-              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-              background-color: ${markerColor};
-              position: relative;
-              z-index: 2;
-            ">
-              ${user.name.charAt(0).toUpperCase()}
-            </div>
-            <div class="user-name-label" style="
-              position: absolute;
-              top: 36px;
-              left: 50%;
-              transform: translateX(-50%);
-              background: rgba(0, 0, 0, 0.8);
-              color: white;
-              padding: 2px 6px;
-              border-radius: 4px;
-              font-size: 10px;
-              font-weight: bold;
-              white-space: nowrap;
-              z-index: 1;
-            ">
-              ${user.name}
-            </div>
+            ${user.name.charAt(0).toUpperCase()}
           </div>
         `,
-        iconSize: [32, 50],
+        iconSize: [32, 32],
         iconAnchor: [16, 16],
       });
 
@@ -230,7 +219,15 @@ const OpenStreetMap: React.FC<OpenStreetMapProps> = ({
       map.fitBounds(group.getBounds().pad(0.1));
     }
 
-  }, [zones, users]);
+  }, [map, L, zones, users]);
+
+  if (!isClient) {
+    return (
+      <div className={styles.mapLoading}>
+        <div>Loading map...</div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.mapContainer}>

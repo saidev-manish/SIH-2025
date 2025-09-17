@@ -50,6 +50,16 @@
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
+.mapLoading {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
 .trackingBtn.active:hover {
   box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
 }
